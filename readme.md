@@ -49,7 +49,7 @@ $callback = function(AsyncRequest\Response $response, AsyncRequest\IRequest $req
 You can specify priority of each request and requests with higher priority will be called first:
 
 ```php
-$asyncRequest->enqueueWithPriority(10, $request, 'callback');
+$asyncRequest->enqueueWithPriority(10, $request, $callback);
 ```
 
 If you want to use some cURL options, it is as easy as this:
