@@ -42,7 +42,7 @@ class Request implements IRequest
 	 * @param string $curlResponse
 	 * @return Response
 	 */
-	public function createResponse(string $curlResponse): Response
+	public function createResponse(string $curlResponse)
 	{
 		$error = curl_error($this->handle);
 		$error = $error === '' ? null : $error;
