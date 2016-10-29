@@ -41,7 +41,7 @@ class AsyncRequestTest extends TestCase
 	{
 		$order = [];
 
-		$callback = function (Response $response, Request $request, AsyncRequest $asyncRequest) use (&$order) {
+		$callback = function (Response $response, AsyncRequest $asyncRequest) use (&$order) {
 			$asyncRequest->enqueueWithPriority(2, new Request($this->urls[0]), function() use (&$order) {
 				$order[] = 'inside';
 			});

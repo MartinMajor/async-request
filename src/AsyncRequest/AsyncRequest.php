@@ -119,7 +119,7 @@ class AsyncRequest
 
 		$response = $request->createResponse($curlResponse);
 		if ($callback !== null) {
-			$callback($response, $request, $this);
+			$callback($response, $this);
 		}
 
 		$this->startFromQueue();

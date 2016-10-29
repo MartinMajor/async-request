@@ -40,8 +40,7 @@ $asyncRequest->setParallelLimit(5);
 You can add other requests in callback function:
 
 ```php
-$callback = function(AsyncRequest\Response $response, AsyncRequest\IRequest $request,
-		AsyncRequest\AsyncRequest $asyncRequest) {
+$callback = function(AsyncRequest\Response $response, AsyncRequest\AsyncRequest $asyncRequest) {
 	$asyncRequest->enqueue(new AsyncRequest\Request('http://www.example.com'));
 };
 ```
