@@ -4,6 +4,10 @@ namespace AsyncRequest;
 
 class Request implements IRequest
 {
+
+	/** @var string */
+	protected $url;
+
 	/** @var resource cURL handler */
 	protected $handle;
 
@@ -12,6 +16,7 @@ class Request implements IRequest
 	 */
 	public function __construct($url)
 	{
+		$this->url = $url;
 		$this->handle = curl_init($url);
 		$this->setOption(CURLOPT_RETURNTRANSFER, true);
 		$this->setOption(CURLOPT_HEADER, true);
@@ -55,7 +60,7 @@ class Request implements IRequest
 
 		$body = substr($curlResponse, $headerSize);
 
-		return new Response($error, $httpCode, $headers, $body);
+		return new Response($this->url, $error, $httpCode, $headers, $body);
 	}
 
 	/**

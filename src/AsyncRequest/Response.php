@@ -5,6 +5,9 @@ namespace AsyncRequest;
 class Response
 {
 
+	/** @var string */
+	private $url;
+
 	/** @var ?string */
 	private $error;
 
@@ -19,17 +22,28 @@ class Response
 
 	/**
 	 * Response constructor.
+	 * @param string $url
 	 * @param ?string $error
 	 * @param int $httpCode
 	 * @param array $headers
 	 * @param string $body
 	 */
-	public function __construct($error, $httpCode, array $headers, $body)
+	public function __construct($url, $error, $httpCode, array $headers, $body)
 	{
+		$this->url = $url;
 		$this->error = $error;
 		$this->httpCode = $httpCode;
 		$this->headers = $headers;
 		$this->body = $body;
+	}
+
+	/**
+	 * Returns URL of request.
+	 * @return string
+	 */
+	public function getUrl()
+	{
+		return $this->url;
 	}
 
 	/**
