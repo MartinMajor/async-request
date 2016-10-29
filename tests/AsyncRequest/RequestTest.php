@@ -3,9 +3,8 @@
 namespace AsyncRequest\Tests;
 
 use AsyncRequest\Request;
-use PHPUnit\Framework\TestCase;
 
-class RequestTest extends TestCase
+class RequestTest extends \PHPUnit_Framework_TestCase
 {
 
 	public function testRequest()

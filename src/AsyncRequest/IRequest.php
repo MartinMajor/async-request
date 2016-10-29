@@ -15,5 +15,5 @@ interface IRequest
 	 * @param string $curlResponse
 	 * @return mixed Custom response object
 	 */
-	public function createResponse(string $curlResponse);
+	public function createResponse($curlResponse);
 }

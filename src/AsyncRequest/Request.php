@@ -10,7 +10,7 @@ class Request implements IRequest
 	/**
 	 * @param string $url The URL to fetch.
 	 */
-	public function __construct(string $url)
+	public function __construct($url)
 	{
 		$this->handle = curl_init($url);
 		$this->setOption(CURLOPT_RETURNTRANSFER, true);
@@ -23,7 +23,7 @@ class Request implements IRequest
 	 * @param int $curlOption
 	 * @param mixed $value
 	 */
-	public function setOption(int $curlOption, $value): void
+	public function setOption($curlOption, $value)
 	{
 		curl_setopt($this->handle, $curlOption, $value);
 	}
@@ -42,7 +42,7 @@ class Request implements IRequest
 	 * @param string $curlResponse
 	 * @return Response
 	 */
-	public function createResponse(string $curlResponse)
+	public function createResponse($curlResponse)
 	{
 		$error = curl_error($this->handle);
 		$error = $error === '' ? null : $error;

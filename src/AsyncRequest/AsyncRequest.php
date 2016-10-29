@@ -31,16 +31,21 @@ class AsyncRequest
 	/**
 	 * Sets number of requests that can be sent in parallel.
 	 * Null means no limit (default value).
+	 * @param int $parallelLimit
+	 * @return void
 	 */
-	public function setParallelLimit(?int $parallelLimit): void
+	public function setParallelLimit($parallelLimit)
 	{
 		$this->parallelLimit = $parallelLimit;
 	}
 
 	/**
 	 * Adds new request to downloading.
+	 * @param IRequest $request
+	 * @param ?callable $callback
+	 * @return void
 	 */
-	public function enqueue(IRequest $request, ?callable $callback = null): void
+	public function enqueue(IRequest $request, $callback = null)
 	{
 		$this->enqueueWithPriority(static::DEFAULT_PRIORITY, $request, $callback);
 	}
@@ -48,8 +53,12 @@ class AsyncRequest
 	/**
 	 * Adds new request to downloading and sets its priority.
 	 * Requests with higher priority will be send first.
+	 * @param int $priority
+	 * @param IRequest $request
+	 * @param ?callable $callback
+	 * @return void
 	 */
-	public function enqueueWithPriority(int $priority, IRequest $request, ?callable $callback = null): void
+	public function enqueueWithPriority($priority, IRequest $request, $callback = null)
 	{
 		$uuid = (int) $request->getHandle();
 		$this->requests[$uuid] = new RequestCallback($request, $callback);
@@ -59,8 +68,9 @@ class AsyncRequest
 
 	/**
 	 * Returns number of requests that are running or waiting.
+	 * @return int
 	 */
-	public function count(): int
+	public function count()
 	{
 		return count($this->requests);
 	}
@@ -68,8 +78,9 @@ class AsyncRequest
 	/**
 	 * Download all pages.
 	 * This is blocking call so this method ends when all pages are downloaded.
+	 * @return void
 	 */
-	public function run(): void
+	public function run()
 	{
 		while ($this->count()) {
 			$this->waitForData();
@@ -79,8 +90,10 @@ class AsyncRequest
 
 	/**
 	 * Waits for next request to complete but maximum $timeout seconds.
+	 * @param float $timeout
+	 * @return void
 	 */
-	public function waitForData(float $timeout = 1.0): void
+	public function waitForData($timeout = 1.0)
 	{
 		if ($this->count() == 0) {
 			throw new Exception('No requests are running.');
@@ -92,8 +105,9 @@ class AsyncRequest
 
 	/**
 	 * Process downloaded requests.
+	 * @return void
 	 */
-	public function processCompleted(): void
+	public function processCompleted()
 	{
 		while ($info = curl_multi_info_read($this->handle)) {
 			$this->callCallback($info);
@@ -102,8 +116,10 @@ class AsyncRequest
 
 	/**
 	 * Creates response object and calls callback.
+	 * @param array $info
+	 * @return void
 	 */
-	protected function callCallback(array $info): void
+	protected function callCallback(array $info)
 	{
 		$this->runningCount--;
 
@@ -127,8 +143,9 @@ class AsyncRequest
 
 	/**
 	 * Starts new request from queue if there is free space in parallel limit.
+	 * @return void
 	 */
-	protected function startFromQueue(): void
+	protected function startFromQueue()
 	{
 		$freeSlots = $this->parallelLimit === NULL || $this->runningCount < $this->parallelLimit;
 

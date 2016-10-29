@@ -11,7 +11,7 @@ class RequestCallback
 	/** @var ?callable */
 	private $callback;
 
-	public function __construct(IRequest $request, ?callable $callback = NULL)
+	public function __construct(IRequest $request, $callback = NULL)
 	{
 		if ($callback !== null && !is_callable($callback)) {
 			throw new Exception('Invalid callback');
@@ -21,12 +21,12 @@ class RequestCallback
 		$this->callback = $callback;
 	}
 
-	public function getRequest(): IRequest
+	public function getRequest()
 	{
 		return $this->request;
 	}
 
-	public function getCallback(): ?callable
+	public function getCallback()
 	{
 		return $this->callback;
 	}

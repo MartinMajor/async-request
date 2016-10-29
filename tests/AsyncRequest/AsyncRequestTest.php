@@ -5,9 +5,8 @@ namespace AsyncRequest\Tests;
 use AsyncRequest\AsyncRequest;
 use AsyncRequest\Request;
 use AsyncRequest\Response;
-use PHPUnit\Framework\TestCase;
 
-class AsyncRequestTest extends TestCase
+class AsyncRequestTest extends \PHPUnit_Framework_TestCase
 {
 
 	protected $urls = [
@@ -15,7 +14,7 @@ class AsyncRequestTest extends TestCase
 		'http://www.example.org',
 	];
 
-	public function testBasic(): void
+	public function testBasic()
 	{
 		$downloaded = 0;
 
@@ -37,7 +36,7 @@ class AsyncRequestTest extends TestCase
 		$this->assertEquals(2, $downloaded);
 	}
 
-	public function testPriorityAndParallelLimit(): void
+	public function testPriorityAndParallelLimit()
 	{
 		$order = [];
 
@@ -58,7 +57,7 @@ class AsyncRequestTest extends TestCase
 		$this->assertEquals(['outside', 'inside', 'outside', 'inside'], $order);
 	}
 
-	public function testNoPages(): void
+	public function testNoPages()
 	{
 		$asyncRequest = new AsyncRequest();
 		$asyncRequest->run();
@@ -68,7 +67,7 @@ class AsyncRequestTest extends TestCase
 	/**
 	 * @expectedException \AsyncRequest\Exception
 	 */
-	public function testWaitForDataEmpty(): void
+	public function testWaitForDataEmpty()
 	{
 		$asyncRequest = new AsyncRequest();
 		$asyncRequest->waitForData();
