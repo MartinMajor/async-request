@@ -17,7 +17,8 @@ class Response
 	/** @var string */
 	private $body;
 
-	public function __construct(?string $error, int $httpCode, array $headers, string $body) {
+	public function __construct(?string $error, int $httpCode, array $headers, string $body)
+	{
 		$this->error = $error;
 		$this->httpCode = $httpCode;
 		$this->headers = $headers;
@@ -59,7 +60,8 @@ class Response
 	/**
 	 * Checks if there was cURL error or request was unsuccessful according to status code.
 	 */
-	public function hasError(): bool {
+	public function hasError(): bool
+	{
 		return $this->getError() !== null || $this->getHttpCode() >= 400;
 	}
 
