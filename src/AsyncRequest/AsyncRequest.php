@@ -87,7 +87,13 @@ class AsyncRequest
 		}
 
 		while (curl_multi_exec($this->handle, $runningCount) === CURLM_CALL_MULTI_PERFORM);
-		curl_multi_select($this->handle, $timeout);
+		if($runningCount > 0){
+			// still unfinished handles
+			if(curl_multi_select($this->handle, $timeout) > 0) {
+				// new data available on handles before $timeout, lets fetch it
+				while (curl_multi_exec($this->handle, $runningCount) === CURLM_CALL_MULTI_PERFORM);
+			}
+		}
 	}
 
 	/**
